@@ -1,6 +1,6 @@
 import numpy as np 
 import random 
-import math 
+
 
 class news:
 	def __init__(self,actions,num_users=10):

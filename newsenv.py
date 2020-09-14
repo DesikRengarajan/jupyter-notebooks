@@ -90,19 +90,26 @@ class simple_news:
 			if(action==4):
 				return -1.0
 		
-		return 0.0					
+		return 0.0
 
-
+	def get_optimal_action(self,context):
+		u=int(context['user'])
+		t=int(context['tod'])
 		
+		if ((u==0) and (t<5)):			
+			return 2
+		if ((u%3==0) and (t<15)):			
+			return 4
+		if ((u==1) and (t<20)):			
+			return 2
+		if ((u%2==0) and (t<12)):			
+			return 1
+		if ((u%2==0) and (t<20)):			
+			return 3
+		if ((u==5) and (t<20)):			
+			return 4
+		if ((u==7) and (t<20)):			
+			return 4
 
-
-
-
-
-
-
-
-
-
-
+		return 4
 

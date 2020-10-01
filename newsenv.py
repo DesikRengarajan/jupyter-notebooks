@@ -243,8 +243,7 @@ class rand_news:
 		if (random.random()<epsilon):
 			return np.random.randint(self.num_actions)
 		else:
-			return self.get_optimal_action(context)
-			
+			return self.get_optimal_action(context)			
 
 class rand_simple_news_2:
 	def __init__(self,num_users=20,num_actions=10,maxP=0.8,minP=0.1):
@@ -304,4 +303,47 @@ class rand_simple_news_2:
 		else:
 			return self.get_optimal_action(context)
 
+class rand_simple_news_3:
 
+	def __init__(self,num_users=20,num_actions=10,maxP=0.8,minP=0.1):
+		self.num_users=num_users
+		self.num_actions=num_actions
+		self.maxP=maxP
+		self.minP=minP
+		self.interest=np.random.choice(self.num_actions,size=self.num_users,replace=False)
+		self.like=-1.0
+		self.dislike=0.0
+		self.users=[i for i in range(self.num_users)]		
+		self.tod=[i for i in range(24)]
+
+	def get_context(self):
+		u=np.random.choice(self.users)
+		t=np.random.choice(self.tod)
+		context={'user':u,'tod':t}
+		return context
+
+	def get_cost(self,context,action):
+		a=int(action)
+		u=int(context['user'])
+		t=int(context['tod'])
+		cost=self.dislike
+
+		if(a==self.interest[u]):
+			if(random.random()<self.maxP):
+				cost=self.like						
+		else: 
+			if(random.random()<self.minP):
+				cost=self.like				
+		
+		return cost
+
+	def get_optimal_action(self,context):
+		u=int(context['user'])		
+		action=int(self.interest[u])
+		return action
+
+	def get_e_optimal_action(self,context,epsilon):
+		if (random.random()<epsilon):
+			return np.random.randint(self.num_actions)
+		else:
+			return self.get_optimal_action(context)
